@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  rabbitmq:
+    build:
+      context: rabbitmq
+    volumes:
+      - ./.data/rabbitmq:/var/lib/rabbitmq
+    command: /start.sh
+
+  consumer:
+    build:
+      context: consumer
+    volumes:
+      - ../../:/source
+      - .data/consumer/:/data
+    env_file:
+      - .envs/application.env
+    command: run_dramatiq
