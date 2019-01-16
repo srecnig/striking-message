@@ -20,5 +20,5 @@ elif [ "$CMD" == "root_shell" ]; then
     bash
 else
     echo "Running ${*} as '${HOSTUSER}'"
-    su $HOSTUSER -c "/source/consumer/run.sh ${*}"
+    su $HOSTUSER -c "$RUN_COMMAND ${*}"
 fi

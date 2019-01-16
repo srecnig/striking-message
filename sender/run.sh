@@ -12,12 +12,12 @@ source ${VENV_PATH}/bin/activate
 echo 'Installing requirements'
 pip install -r requirements.txt
 
-if [ "${1}" = "run_dramatiq" ]; then
-  echo "Starting dramatiq consumer"
-  dramatiq striking_message --processes 1 --queues messages
+if [ "${1}" = "run_flask" ]; then
+  echo "Starting flask..."
+  tail -f /dev/null
 else
   if [ -z "${1}" ]; then
-    echo "Please provide what you want to start (run_dramatiq)..."
+    echo "Please provide what you want to start (run_flask)..."
     exit 1;
   fi
 

@@ -10,10 +10,26 @@ services:
 
   consumer:
     build:
-      context: consumer
+      context: python
     volumes:
       - ../../:/source
       - .data/consumer/:/data
+    working_dir: /source/consumer
     env_file:
       - .envs/application.env
+    environment:
+      - RUN_COMMAND=/source/consumer/run.sh
     command: run_dramatiq
+
+  sender:
+    build:
+      context: python
+    volumes:
+      - ../../:/source
+      - .data/sender/:/data
+    working_dir: /source/sender
+    env_file:
+      - .envs/application.env
+    environment:
+      - RUN_COMMAND=/source/sender/run.sh
+    command: run_flask
