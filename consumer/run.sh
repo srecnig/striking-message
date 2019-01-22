@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 VENV_PATH=/data/virtualenv
 
@@ -14,7 +14,17 @@ pip install -r requirements.txt
 
 if [ "${1}" = "run_dramatiq" ]; then
   echo "Starting dramatiq consumer"
-  dramatiq striking_message --processes 1 --queues messages
+  delay=1
+  while true; do
+    dramatiq striking_message --processes 1 --queues messages
+    if [ $? -eq 3 ]; then
+      echo "Connection error encountered on startup. Retrying in $delay second(s)..."
+      sleep $delay
+      delay=$((delay * 2))
+    else
+      exit $?
+    fi
+  done
 else
   if [ -z "${1}" ]; then
     echo "Please provide what you want to start (run_dramatiq)..."
