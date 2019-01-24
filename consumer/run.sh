@@ -16,7 +16,7 @@ if [ "${1}" = "run_dramatiq" ]; then
   echo "Starting dramatiq consumer"
   delay=1
   while true; do
-    dramatiq striking_message --processes 1 --queues messages
+    dramatiq striking_message --watch . --processes 1 --queues messages
     if [ $? -eq 3 ]; then
       echo "Connection error encountered on startup. Retrying in $delay second(s)..."
       sleep $delay
