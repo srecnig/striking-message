@@ -1,7 +1,11 @@
-FROM python:3.7.2-slim
+FROM python:3.7.2-slim-stretch
 
 ARG HOSTUID=1000
 ARG HOSTGID=1000
+
+# install dependencies
+RUN apt-get update
+RUN apt-get install -y git
 
 # add host user
 RUN addgroup --gid $HOSTGID python
