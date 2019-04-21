@@ -12,12 +12,11 @@ source ${VENV_PATH}/bin/activate
 echo 'Installing requirements'
 pip install -r requirements.txt
 
-if [ "${1}" = "run_flask" ]; then
-  echo "Starting flask..."
-  tail -f /dev/null
+if [ "${1}" = "nothing" ]; then
+  echo "Starting nothing..."
 else
   if [ -z "${1}" ]; then
-    echo "Please provide what you want to start (run_flask)..."
+    echo "Please provide what you want to start (nothing)..."
     exit 1;
   fi
 
