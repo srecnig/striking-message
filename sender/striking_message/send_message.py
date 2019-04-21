@@ -26,4 +26,10 @@ def _dramatiq_shout_payload(message):
 
 
 def _broker_url():
-    return os.environ.get('RABBITMQ_BROKER_URL')
+    environment = os.environ
+    user = environment.get('RABBITMQ_USER')
+    password = environment.get('RABBITMQ_PASSWORD')
+    port = environment.get('RABBITMQ_PORT')
+    vhost = environment.get('RABBITMQ_VHOST')
+    hosts = environment.get('RABBITMQ_HOSTS').split(',')
+    return ';'.join([f'amqp://{user}:{password}@{host}:{port}/{vhost}' for host in hosts])
